@@ -8,6 +8,7 @@ function setup(){
 	background(255);
 	frameRate(1);
 
+	//Diplay config 
 	display.pattern         = "####";
 	display.displayAngle    = 6;
 	display.digitHeight     = 21;
@@ -22,9 +23,9 @@ function setup(){
 	display.draw();
 
 	plot = new GPlot(this, 0, 0, screen.width/2, screen.height/2);
-	plot.getXAxis().setAxisLabelText("Nº muestra");
-	plot.getYAxis().setAxisLabelText("Corriente RMS");
-	plot.setTitleText("Corriente");
+	plot.getXAxis().setAxisLabelText("Sample number");
+	plot.getYAxis().setAxisLabelText("Current RMS");
+	plot.setTitleText("Current");
 
 	buttonOn = createButton('Off');
 	buttonOff = createButton('On');
@@ -41,7 +42,7 @@ function setup(){
 	buttonOn.style("background-color", color(25, 23, 200, 50));
 	buttonOff.style("background-color", color(25, 23, 200, 50));
 
-	var myDiv = createDiv("Conmutar iPlug");
+	var myDiv = createDiv("Switch iPlug");
 	myDiv.style("font-size", "20px");
 	myDiv.style("color", "#000000");
 	myDiv.style("position", screen.width/2, screen.height/2 - 30);
@@ -72,18 +73,19 @@ function draw(){
 }
 
 function JSONfinish(data){
-	var media = 0;
-	var potencia;
+	var sum = 0;
+	var power;
 	var k = Object.keys(data);
 	for(var i = 0; i < k.length; i++){
 	 	var index = Number(k[i]);
 		var value = data[index];
-		media += value;
+		sum += value;
 	 	points[index] = new GPoint(i, value);			
 	}	
-	media = media/k.length;
-	potencia = media * 228;
-	display.setValue(String(Math.floor(potencia)));
+	sum = sum/k.length;
+	power = sum * 228; //228 is the V RMS value measured with a multimeter in the plug that you connect your iPlug.
+					   //220 V is the Europe standard.
+	display.setValue(String(Math.floor(power)));
 	display.draw();
 }
 

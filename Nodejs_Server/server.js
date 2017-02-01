@@ -38,7 +38,7 @@ function sendAll(req, resp){
 
 function postReleOn(req, res){
 	var options = {
- 	 host: '192.168.1.162', //Ip fija del modulo asignada por el router
+ 	 host: '192.168.1.162', //Static IP
  	 path: '/releOn',
 	};
 
@@ -51,7 +51,7 @@ function postReleOn(req, res){
 
 function postReleOff(req, res){
 	var options = {
- 	 host: '192.168.1.162', //Ip fija 
+ 	 host: '192.168.1.162', //Static IP
  	 path: '/releOff',
 	};
 
